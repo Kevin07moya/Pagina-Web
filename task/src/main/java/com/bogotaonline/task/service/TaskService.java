@@ -2,9 +2,11 @@ package com.bogotaonline.task.service;
 
 import com.bogotaonline.task.models.TaskRecord;
 import com.bogotaonline.task.repository.TaskRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -30,7 +32,20 @@ public class TaskService {
         taskRecord.setTittle(record.getTittle());
         taskRecord.setDescription(record.getDescription());
         taskRecord.setStatus(record.getStatus());
-        return this.taskRepository.save(record);
+        return this.taskRepository.save(taskRecord);
+    }
+
+    public void deleteById(long id){
+        this.taskRepository.deleteById(id);
+    }
+
+    public List<TaskRecord> getByStatus(String status){
+        return this.taskRepository.findByStatus(status);
+
+    }
+
+    public List<TaskRecord> getAll(){
+        return this.taskRepository.findAll();
     }
 
 }
