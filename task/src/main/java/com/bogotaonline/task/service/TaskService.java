@@ -30,7 +30,7 @@ public class TaskService {
         taskRecord.setTittle(record.getTittle());
         taskRecord.setDescription(record.getDescription());
         taskRecord.setStatus(record.getStatus());
-        return null;
+        return this.taskRepository.save(record);
     }
 
 }
