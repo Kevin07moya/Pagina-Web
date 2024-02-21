@@ -6,12 +6,13 @@ import com.bogotaonline.task.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class TaskService {
-    private TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
 
     public TaskService (TaskRepository taskRepository){
         this.taskRepository = taskRepository;
@@ -32,11 +33,13 @@ public class TaskService {
         taskRecord.setTittle(record.getTittle());
         taskRecord.setDescription(record.getDescription());
         taskRecord.setStatus(record.getStatus());
+        taskRecord.setDate(record.getDate());
         return this.taskRepository.save(taskRecord);
     }
 
     public void deleteById(long id){
-        this.taskRepository.deleteById(id);
+        TaskRecord record = this.taskRepository.findById(id).get();
+        this.taskRepository.delete(record);
     }
 
     public List<TaskRecord> getByStatus(String status){
@@ -46,6 +49,10 @@ public class TaskService {
 
     public List<TaskRecord> getAll(){
         return this.taskRepository.findAll();
+    }
+
+    public List<TaskRecord> findByDate(){
+        return this.taskRepository.findByDateAfterOrderByDate(LocalDate.now());
     }
 
 }

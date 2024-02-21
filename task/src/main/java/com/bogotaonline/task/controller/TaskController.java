@@ -14,7 +14,7 @@ import static org.springframework.http.HttpStatus.OK;
 @RequestMapping(path = "task")
 public class TaskController {
 
-    private TaskService TaskService;
+    private final TaskService TaskService;
 
     public TaskController(TaskService TaskService) {
         this.TaskService = TaskService;
@@ -58,6 +58,10 @@ public class TaskController {
         return this.TaskService.getAll();
     }
 
+    @GetMapping("/date")
+    private List<TaskRecord> findByDate(){
+        return this.TaskService.findByDate();
+    }
 }
 
 

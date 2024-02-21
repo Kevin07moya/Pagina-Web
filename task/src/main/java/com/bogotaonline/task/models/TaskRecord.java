@@ -3,6 +3,9 @@ package com.bogotaonline.task.models;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.text.DateFormat;
+import java.time.LocalDate;
+
 @Data
 @Entity
 public class TaskRecord {
@@ -19,6 +22,16 @@ public class TaskRecord {
     @Column(name = "STATUS")
     private String status;
 
+    @Column(name = "FINAL_DATE")
+    private LocalDate date;
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     public long getId() {
         return Id;
